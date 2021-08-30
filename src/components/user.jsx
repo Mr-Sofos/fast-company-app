@@ -1,30 +1,26 @@
-import React from "react";
+import React from 'react'
+import Qualitie from './Qualitie'
+import BookMark from './BookMark'
 
-const User = ({ user, handleDelete }) => {
-  const getQualities = (qualities) => {
-    return qualities.map((qualitie) => (
-      <span className={`m-1 p-1 rounded text-light bg-${qualitie.color}`}>
-        {qualitie.name}
-      </span>
-    ));
-  };
+const User = ({user, handleDeleteUser}) => {
   return (
     <tr>
       <td>{user.name}</td>
       <td>{user.profession.name}</td>
-      <td>{getQualities(user.qualities)}</td>
-      <td>{user.completedMeetings}</td>
-      <td>{user.rate} / 5</td>
+      <Qualitie qualities={user.qualities} />
+      <td className='text-center'>{user.completedMeetings}</td>
+      <td className='text-center'>{user.rate} /5</td>
+      <BookMark />
       <td>
         <span
-          onClick={() => handleDelete(user._id)}
-          className="bg-danger p-1 m-1 rounded text-white spanDelete"
+          onClick={() => handleDeleteUser(user._id)}
+          className='bg-danger p-1 m-1 rounded text-white spanDelete'
         >
           delete
         </span>
       </td>
     </tr>
-  );
-};
+  )
+}
 
-export default User;
+export default User
