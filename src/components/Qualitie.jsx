@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from "react"
+import PropTypes from "prop-types"
 
 const Qualitie = ({ qualities }) => {
   return (
@@ -13,11 +13,11 @@ const Qualitie = ({ qualities }) => {
         </span>
       ))}
     </td>
-  );
-};
+  )
+}
 
 Qualitie.propTypes = {
   qualities: PropTypes.array
-};
+}
 
-export default Qualitie;
+export default Qualitie

@@ -1,19 +1,22 @@
-import React, { useState } from "react";
-import Users from "./users";
-import api from "../api";
-import SearchStatus from "./SearchStatus";
+import React, { useState, useEffect } from "react"
+import Users from "./users"
+import api from "../api"
 
 const App = () => {
-  const [users, setUsers] = useState(api.users.fetchAll());
+  const [users, setUsers] = useState()
+
+  useEffect(() => {
+    api.users.fetchAll().then((data) => setUsers(data))
+  }, [])
+
   const handleDeleteUser = (userId) =>
-    setUsers(users.filter((user) => user._id !== userId));
+    setUsers(users.filter((user) => user._id !== userId))
 
-  return (
-    <>
-      <SearchStatus usersCount={users.length} />
-      <Users handleDeleteUser={handleDeleteUser} users={users} />
-    </>
-  );
-};
+  if (!users) {
+    return "loading..."
+  }
 
-export default App;
+  return <Users handleDeleteUser={handleDeleteUser} users={users} />
+}
+
+export default App

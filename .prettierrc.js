@@ -1,6 +1,7 @@
 module.exports = {
   trailingComma: "none",
   tabWidth: 2,
-  semi: true,
-  quotes: "single"
+  semi: false,
+  quotes: "single",
+  indent: [2, 2, { SwitchCase: 1 }]
 };

@@ -1,11 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
-const pluralize = require("numeralize-ru").pluralize;
+import React from "react"
+import PropTypes from "prop-types"
+const pluralize = require("numeralize-ru").pluralize
 
 const SearchusersCount = ({ usersCount }) => {
-  const peoples = pluralize(usersCount, "человек", "человека", "человека");
-  const party = pluralize(usersCount, "тусанет", "тусанут", "тусанут");
-  const searchStatus = `${usersCount} ${peoples} ${party} с тобой сегодня`;
+  const peoples = pluralize(usersCount, "человек", "человека", "человека")
+  const party = pluralize(usersCount, "тусанет", "тусанут", "тусанут")
+  const searchStatus = `${usersCount} ${peoples} ${party} с тобой сегодня`
 
   return (
     <span
@@ -15,11 +15,11 @@ const SearchusersCount = ({ usersCount }) => {
     >
       {usersCount ? searchStatus : "Никто не тусанет с тобой сегодня"}
     </span>
-  );
-};
+  )
+}
 
 SearchusersCount.propTypes = {
   usersCount: PropTypes.number.isRequired
-};
+}
 
-export default SearchusersCount;
+export default SearchusersCount

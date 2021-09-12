@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 
 const BookMark = () => {
-  const [favorite, setFavorite] = useState(false);
-  const isFavorite = () => (favorite ? setFavorite(false) : setFavorite(true));
+  const [favorite, setFavorite] = useState(false)
+  const isFavorite = () => (favorite ? setFavorite(false) : setFavorite(true))
   const bookmark = () => {
-    if (favorite) return <i className="bi bi-bookmark-heart-fill"></i>;
-    return <i className="bi bi-bookmark"></i>;
-  };
+    if (favorite) return <i className="bi bi-bookmark-heart-fill"></i>
+    return <i className="bi bi-bookmark"></i>
+  }
 
   return (
     <td className="text-center">
@@ -14,7 +14,7 @@ const BookMark = () => {
         {bookmark()}
       </span>
     </td>
-  );
-};
+  )
+}
 
-export default BookMark;
+export default BookMark

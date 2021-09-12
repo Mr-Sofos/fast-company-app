@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Qualitie from "./Qualitie";
-import BookMark from "./BookMark";
+import React from "react"
+import PropTypes from "prop-types"
+import Qualitie from "./Qualitie"
+import BookMark from "./BookMark"
 
 const User = ({ user, handleDeleteUser }) => {
   return (
@@ -21,12 +21,12 @@ const User = ({ user, handleDeleteUser }) => {
         </span>
       </td>
     </tr>
-  );
-};
+  )
+}
 
 User.propTypes = {
   user: PropTypes.object,
   handleDeleteUser: PropTypes.func
-};
+}
 
-export default User;
+export default User

@@ -13,9 +13,20 @@ module.exports = {
   },
   plugins: ["react"],
   rules: {
-    semi: [2, "always"],
-    indent: ["error", 2],
+    semi: ["error", "never"],
+    indent: [2, 2, { SwitchCase: 1 }],
     quotes: ["error", "double", { allowTemplateLiterals: true }],
-    "space-before-function-paren": ["error", "never"]
+    "space-before-function-paren": [
+      "error",
+      {
+        anonymous: "always",
+        named: "never",
+        asyncArrow: "always"
+      }
+    ],
+    "max-len": ["error", { code: 100 }],
+    "multiline-ternary": ["error", "always-multiline"],
+    "operator-linebreak": ["error", "before"],
+    "no-mixed-spaces-and-tabs": ["error", "smart-tabs"]
   }
-};
+}
