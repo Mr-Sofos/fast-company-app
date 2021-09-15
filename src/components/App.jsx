@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import Users from "./users"
+import Users from "./Users"
 import api from "../api"
 
 const App = () => {

@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react"
-import User from "./user"
+import UsersTable from "./UsersTable"
 import Pagination from "./Pagination"
 import PropTypes from "prop-types"
 import { paginate } from "../utils/paginate"
+import _ from "lodash"
 import GroupList from "./GroupList"
 import api from "../api"
 import SearchStatus from "./SearchStatus"
 
-const Users = ({ users, handleDeleteUser }) => {
+const Users = ({ users, ...rest }) => {
   const [currentPage, setCurrentPage] = useState(1)
   const [professions, setProfessions] = useState()
   const [selectedProf, setSelectedProf] = useState()
+  const [sortedBy, setSortedBy] = useState({ iter: "name", order: "asc" })
 
   useEffect(() => {
     api.professions.fetchAll().then((data) => setProfessions(data))
@@ -27,14 +29,33 @@ const Users = ({ users, handleDeleteUser }) => {
   const handlePageChange = (pageIndex) => {
     setCurrentPage(pageIndex)
   }
-  const pageSize = 2
+
+  const handleSort = (item) => {
+    if (sortedBy.iter === item) {
+      setSortedBy((prevState) => ({
+        ...prevState,
+        order: prevState.order === "asc" ? "desc" : "asc"
+      }))
+    } else {
+      setSortedBy({ iter: item, order: "asc" })
+    }
+  }
+  const pageSize = 6
 
   const filteredUsers = selectedProf
-    ? users.filter((user) => user.profession.name === selectedProf.name)
+    ? users.filter(
+        (user) =>
+          JSON.stringify(user.profession) === JSON.stringify(selectedProf)
+      )
     : users
 
   const count = filteredUsers.length
-  const allUsers = paginate(filteredUsers, currentPage, pageSize)
+  const sortedUsers = _.orderBy(
+    filteredUsers,
+    [sortedBy.iter],
+    [sortedBy.order]
+  )
+  const allUsers = paginate(sortedUsers, currentPage, pageSize)
 
   const clearFilter = () => setSelectedProf()
 
@@ -53,30 +74,7 @@ const Users = ({ users, handleDeleteUser }) => {
       <div className="flex-column">
         <SearchStatus usersCount={count} />
         {count > 0 && (
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col">Имя</th>
-                <th scope="col">Профессия</th>
-                <th scope="col">Качества</th>
-                <th scope="col">Встретился, раз</th>
-                <th scope="col">Рейтинг</th>
-                <th scope="col">Избранное</th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {allUsers.map((user) => {
-                return (
-                  <User
-                    user={user}
-                    key={user._id}
-                    handleDeleteUser={handleDeleteUser}
-                  />
-                )
-              })}
-            </tbody>
-          </table>
+          <UsersTable users={allUsers} onSort={handleSort} {...rest} />
         )}
         <div className="d-flex justify-content-center">
           <Pagination
@@ -92,8 +90,7 @@ const Users = ({ users, handleDeleteUser }) => {
 }
 
 Users.propTypes = {
-  users: PropTypes.array,
-  handleDeleteUser: PropTypes.func
+  users: PropTypes.array
 }
 
 export default Users
