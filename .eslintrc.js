@@ -24,7 +24,7 @@ module.exports = {
         asyncArrow: "always"
       }
     ],
-    "max-len": ["error", { code: 100 }],
+    "max-len": "off",
     "multiline-ternary": ["error", "always-multiline"],
     "operator-linebreak": ["error", "before"],
     "no-mixed-spaces-and-tabs": ["error", "smart-tabs"]

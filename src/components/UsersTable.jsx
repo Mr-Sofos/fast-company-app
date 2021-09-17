@@ -1,31 +1,21 @@
 import React from "react"
 import User from "./User"
 import PropTypes from "prop-types"
+import TableHeader from "./TableHeader"
 
-const UsersTable = ({ users, onSort, ...rest }) => {
+const UsersTable = ({ users, onSort, selectedSort, ...rest }) => {
+  const columns = {
+    name: { iter: "name", name: "Имя" },
+    qualities: { name: "Качества" },
+    professions: { iter: "profession.name", name: "Профессия" },
+    completedMeetings: { iter: "completedMeetings", name: "Встретился, раз" },
+    rate: { iter: "rate", name: "Рейтинг" },
+    bookmark: { iter: "bookmark", name: "Избранное" },
+    delete: {}
+  }
   return (
     <table className="table">
-      <thead>
-        <tr>
-          <th onClick={() => onSort("name")} scope="col">
-            Имя
-          </th>
-          <th onClick={() => onSort("profession.name")} scope="col">
-            Профессия
-          </th>
-          <th scope="col">Качества</th>
-          <th onClick={() => onSort("completedMeetings")} scope="col">
-            Встретился, раз
-          </th>
-          <th onClick={() => onSort("rate")} scope="col">
-            Рейтинг
-          </th>
-          <th onClick={() => onSort("bookmark")} scope="col">
-            Избранное
-          </th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
+      <TableHeader {...{ onSort, selectedSort, columns }} />
       <tbody>
         {users.map((user) => {
           return <User user={user} key={user._id} {...rest} />
@@ -37,7 +27,8 @@ const UsersTable = ({ users, onSort, ...rest }) => {
 
 UsersTable.propTypes = {
   users: PropTypes.array,
-  onSort: PropTypes.func.isRequired
+  onSort: PropTypes.func.isRequired,
+  selectedSort: PropTypes.object.isRequired
 }
 
 export default UsersTable

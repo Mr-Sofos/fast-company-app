@@ -31,14 +31,7 @@ const Users = ({ users, ...rest }) => {
   }
 
   const handleSort = (item) => {
-    if (sortedBy.iter === item) {
-      setSortedBy((prevState) => ({
-        ...prevState,
-        order: prevState.order === "asc" ? "desc" : "asc"
-      }))
-    } else {
-      setSortedBy({ iter: item, order: "asc" })
-    }
+    setSortedBy(item)
   }
   const pageSize = 6
 
@@ -74,7 +67,12 @@ const Users = ({ users, ...rest }) => {
       <div className="flex-column">
         <SearchStatus usersCount={count} />
         {count > 0 && (
-          <UsersTable users={allUsers} onSort={handleSort} {...rest} />
+          <UsersTable
+            users={allUsers}
+            onSort={handleSort}
+            selectedSort={sortedBy}
+            {...rest}
+          />
         )}
         <div className="d-flex justify-content-center">
           <Pagination
