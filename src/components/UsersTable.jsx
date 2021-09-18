@@ -1,26 +1,28 @@
 import React from "react"
-import User from "./User"
+// import User from "./User"
 import PropTypes from "prop-types"
 import TableHeader from "./TableHeader"
+import TableBody from "./TableBody"
 
 const UsersTable = ({ users, onSort, selectedSort, ...rest }) => {
   const columns = {
-    name: { iter: "name", name: "Имя" },
+    name: { path: "name", name: "Имя" },
     qualities: { name: "Качества" },
-    professions: { iter: "profession.name", name: "Профессия" },
-    completedMeetings: { iter: "completedMeetings", name: "Встретился, раз" },
-    rate: { iter: "rate", name: "Рейтинг" },
-    bookmark: { iter: "bookmark", name: "Избранное" },
+    professions: { path: "profession.name", name: "Профессия" },
+    completedMeetings: { path: "completedMeetings", name: "Встретился, раз" },
+    rate: { path: "rate", name: "Рейтинг" },
+    bookmark: { path: "bookmark", name: "Избранное" },
     delete: {}
   }
   return (
     <table className="table">
       <TableHeader {...{ onSort, selectedSort, columns }} />
-      <tbody>
+      <TableBody {...{ columns, data: users, ...rest }} />
+      {/* <tbody>
         {users.map((user) => {
           return <User user={user} key={user._id} {...rest} />
         })}
-      </tbody>
+      </tbody> */}
     </table>
   )
 }

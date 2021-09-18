@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import Qualitie from "./Qualitie"
 import BookMark from "./BookMark"
 
-const User = ({ user, handleDeleteUser }) => {
+const User = ({ user, handleDelete, onToogleBookMark }) => {
   return (
     <tr>
       <td>{user.name}</td>
@@ -11,10 +11,13 @@ const User = ({ user, handleDeleteUser }) => {
       <Qualitie qualities={user.qualities} />
       <td className="text-center">{user.completedMeetings}</td>
       <td className="text-center">{user.rate} /5</td>
-      <BookMark />
+      <BookMark
+        onClick={() => onToogleBookMark(user._id)}
+        status={user.bookmark}
+      />
       <td>
         <span
-          onClick={() => handleDeleteUser(user._id)}
+          onClick={() => handleDelete(user._id)}
           className="bg-danger p-1 m-1 rounded text-white spanDelete"
         >
           delete
@@ -26,7 +29,8 @@ const User = ({ user, handleDeleteUser }) => {
 
 User.propTypes = {
   user: PropTypes.object,
-  handleDeleteUser: PropTypes.func
+  handleDelete: PropTypes.func,
+  onToogleBookMark: PropTypes.func
 }
 
 export default User

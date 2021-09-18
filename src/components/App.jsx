@@ -9,14 +9,32 @@ const App = () => {
     api.users.fetchAll().then((data) => setUsers(data))
   }, [])
 
-  const handleDeleteUser = (userId) =>
+  const handleDelete = (userId) =>
     setUsers(users.filter((user) => user._id !== userId))
 
-  if (!users) {
-    return "loading..."
+  const handleToggleBookMark = (id) => {
+    setUsers(
+      users.map((user) => {
+        if (user._id === id) {
+          return { ...user, bookmark: !user.bookmark }
+        }
+        return user
+      })
+    )
+    console.log(id)
   }
 
-  return <Users handleDeleteUser={handleDeleteUser} users={users} />
+  return (
+    <>
+      {users && (
+        <Users
+          onDelete={handleDelete}
+          users={users}
+          onToggleBookMark={handleToggleBookMark}
+        />
+      )}
+    </>
+  )
 }
 
 export default App
