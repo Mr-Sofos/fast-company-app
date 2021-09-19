@@ -1,9 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
-import TableHeader from "./TableHeader"
-import TableBody from "./TableBody"
 import BookMark from "./BookMark"
 import QualitiesList from "./QualitiesList"
+import Table from "./Table"
 
 const UsersTable = ({
   users,
@@ -42,10 +41,12 @@ const UsersTable = ({
   }
 
   return (
-    <table className="table">
-      <TableHeader {...{ onSort, selectedSort, columns }} />
-      <TableBody {...{ columns, data: users, ...rest }} />
-    </table>
+    <Table
+      onSort={onSort}
+      selectedSort={selectedSort}
+      columns={columns}
+      data={users}
+    />
   )
 }
 

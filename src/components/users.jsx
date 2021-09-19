@@ -8,12 +8,33 @@ import GroupList from "./GroupList"
 import api from "../api"
 import SearchStatus from "./SearchStatus"
 
-const Users = ({ users, ...rest }) => {
+const Users = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [professions, setProfessions] = useState()
   const [selectedProf, setSelectedProf] = useState()
   const [sortedBy, setSortedBy] = useState({ iter: "name", order: "asc" })
+  //
+  const [users, setUsers] = useState()
 
+  useEffect(() => {
+    api.users.fetchAll().then((data) => setUsers(data))
+  }, [])
+
+  const handleDelete = (userId) =>
+    setUsers(users.filter((user) => user._id !== userId))
+
+  const handleToggleBookMark = (id) => {
+    setUsers(
+      users.map((user) => {
+        if (user._id === id) {
+          return { ...user, bookmark: !user.bookmark }
+        }
+        return user
+      })
+    )
+    console.log(id)
+  }
+  //
   useEffect(() => {
     api.professions.fetchAll().then((data) => setProfessions(data))
   }, [])
@@ -42,6 +63,9 @@ const Users = ({ users, ...rest }) => {
       )
     : users
 
+  if (!users) {
+    return "...loading"
+  }
   const count = filteredUsers.length
   const sortedUsers = _.orderBy(
     filteredUsers,
@@ -71,7 +95,8 @@ const Users = ({ users, ...rest }) => {
             users={allUsers}
             onSort={handleSort}
             selectedSort={sortedBy}
-            {...rest}
+            onDelete={handleDelete}
+            onToggleBookMark={handleToggleBookMark}
           />
         )}
         <div className="d-flex justify-content-center">
