@@ -16,12 +16,12 @@ const User = ({ user, handleDelete, onToogleBookMark }) => {
         status={user.bookmark}
       />
       <td>
-        <span
+        <button
           onClick={() => handleDelete(user._id)}
           className="bg-danger p-1 m-1 rounded text-white spanDelete"
         >
           delete
-        </span>
+        </button>
       </td>
     </tr>
   )

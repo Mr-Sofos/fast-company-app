@@ -15,9 +15,3 @@ code {
 .spanDelete {
   cursor: pointer;
 }
-
-.bookmark:hover {
-  background-color: rgba(202, 224, 240, 0.171);
-  padding: 10px;
-  border-radius: 100%;
-}

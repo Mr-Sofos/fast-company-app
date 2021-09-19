@@ -45,7 +45,7 @@ const Users = ({ users, ...rest }) => {
   const count = filteredUsers.length
   const sortedUsers = _.orderBy(
     filteredUsers,
-    [sortedBy.iter],
+    [sortedBy.path],
     [sortedBy.order]
   )
   const allUsers = paginate(sortedUsers, currentPage, pageSize)
