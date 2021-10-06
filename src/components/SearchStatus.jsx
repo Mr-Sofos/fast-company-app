@@ -3,8 +3,8 @@ import PropTypes from "prop-types"
 const pluralize = require("numeralize-ru").pluralize
 
 const SearchusersCount = ({ usersCount }) => {
-  const peoples = pluralize(usersCount, "человек", "человека", "человека")
-  const party = pluralize(usersCount, "тусанет", "тусанут", "тусанут")
+  const peoples = pluralize(usersCount, "человек", "человека", "человек")
+  const party = pluralize(usersCount, "тусанёт", "тусанут", "тусанут")
   const searchStatus = `${usersCount} ${peoples} ${party} с тобой сегодня`
 
   return (
