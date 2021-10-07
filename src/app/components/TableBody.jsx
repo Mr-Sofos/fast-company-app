@@ -11,9 +11,11 @@ const TableBody = ({ data, columns }) => {
       }
       return component
     }
+
     return _.get(item, columns[column].path)
   }
 
+  console.log(data.map((i) => i.name))
   return (
     <tbody>
       {data.map((item) => (

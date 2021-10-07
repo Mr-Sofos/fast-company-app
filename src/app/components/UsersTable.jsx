@@ -32,7 +32,10 @@ const UsersTable = ({
     },
     delete: {
       component: (user) => (
-        <button onClick={() => onDelete(user._id)} className="btn bg-danger">
+        <button
+          onClick={() => onDelete(user._id)}
+          className="btn bg-danger text-white"
+        >
           delete
         </button>
       )

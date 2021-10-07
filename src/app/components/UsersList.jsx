@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react"
-import UsersTable from "../UsersTable"
-import Pagination from "../Pagination"
+import UsersTable from "./UsersTable"
+import Pagination from "./Pagination"
 import PropTypes from "prop-types"
-import { paginate } from "../../utils/paginate"
+import { paginate } from "../utils/paginate"
 import _ from "lodash"
-import GroupList from "../GroupList"
-import api from "../../api"
-import SearchStatus from "../SearchStatus"
+import GroupList from "./GroupList"
+import api from "../api"
+import SearchStatus from "./SearchStatus"
 
-const Users = () => {
+const UsersList = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [professions, setProfessions] = useState()
   const [selectedProf, setSelectedProf] = useState()
-  const [sortedBy, setSortedBy] = useState({ iter: "name", order: "asc" })
-  //
+  const [sortedBy, setSortedBy] = useState({ puth: "name", order: "asc" })
+  const pageSize = 6
+
   const [users, setUsers] = useState()
 
   useEffect(() => {
@@ -34,7 +35,7 @@ const Users = () => {
     )
     console.log(id)
   }
-  //
+
   useEffect(() => {
     api.professions.fetchAll().then((data) => setProfessions(data))
   }, [])
@@ -54,7 +55,6 @@ const Users = () => {
   const handleSort = (item) => {
     setSortedBy(item)
   }
-  const pageSize = 6
 
   const filteredUsers = selectedProf
     ? users.filter(
@@ -112,8 +112,8 @@ const Users = () => {
   )
 }
 
-Users.propTypes = {
+UsersList.propTypes = {
   users: PropTypes.array
 }
 
-export default Users
+export default UsersList
