@@ -1,25 +1,35 @@
 import React, { useState } from "react"
 
 const Login = () => {
-  const [email, setEmail] = useState()
-  const handlerChange = (e) => {
-    setEmail(e.target.value)
-    console.log(e.target.value)
+  const [data, setData] = useState({ email: "", password: "" })
+
+  const handleChange = ({ target }) => {
+    setData((prevState) => ({
+      ...prevState,
+      [target.name]: target.value
+    }))
   }
   return (
-    <form>
+    <form action="">
       <div>
         <label htmlFor="email">Email</label>
         <input
           type="text"
           id="email"
-          value={email}
-          onChange={handlerChange}
-        ></input>
+          name="email"
+          value={data.email}
+          onChange={handleChange}
+        />
       </div>
       <div>
         <label htmlFor="password">Password</label>
-        <input type="password" id="password"></input>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          value={data.password}
+          onChange={handleChange}
+        />
       </div>
     </form>
   )
