@@ -24,12 +24,13 @@ const Login = () => {
       }
     }
     setErrors(errors)
+    return Object.keys(errors).length === 0
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    validate()
-    if (Object.keys(errors).length !== 0) return
+    const isValid = validate()
+    if (!isValid) return
     console.log(data)
   }
   return (
@@ -39,6 +40,7 @@ const Login = () => {
         name="email"
         value={data.email}
         onChange={handleChange}
+        error={errors.email}
       />
       <TextField
         label="password"
@@ -46,6 +48,7 @@ const Login = () => {
         name="password"
         value={data.password}
         onChange={handleChange}
+        error={errors.password}
       />
       <button type="submit">Submit</button>
     </form>
