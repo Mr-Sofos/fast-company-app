@@ -9,7 +9,7 @@ const SearchusersCount = ({ usersCount }) => {
 
   return (
     <span
-      className={`${
+      className={`badge ${
         usersCount ? "bg-primary" : "bg-danger"
       } p-1 m-1 rounded text-white`}
     >

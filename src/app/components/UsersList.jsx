@@ -7,15 +7,20 @@ import _ from "lodash"
 import GroupList from "./GroupList"
 import api from "../api"
 import SearchStatus from "./SearchStatus"
+import SearchUsers from "./SearchUsers"
 
 const UsersList = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [professions, setProfessions] = useState()
   const [selectedProf, setSelectedProf] = useState()
   const [sortedBy, setSortedBy] = useState({ puth: "name", order: "asc" })
-  const pageSize = 6
-
   const [users, setUsers] = useState()
+
+  const [searchUser, setSearchUser] = useState("")
+
+  const handleSearchUser = ({ target }) => setSearchUser(target.value)
+
+  const pageSize = 6
 
   useEffect(() => {
     api.users.fetchAll().then((data) => setUsers(data))
@@ -49,6 +54,7 @@ const UsersList = () => {
   }
 
   const handlePageChange = (pageIndex) => {
+    setSearchUser("")
     setCurrentPage(pageIndex)
   }
 
@@ -72,7 +78,12 @@ const UsersList = () => {
     [sortedBy.path],
     [sortedBy.order]
   )
-  const allUsers = paginate(sortedUsers, currentPage, pageSize)
+  // search users practice
+  const searchFilter = sortedUsers.filter((item) =>
+    item.name.includes(searchUser)
+  )
+
+  const allUsers = paginate(searchFilter, currentPage, pageSize)
 
   const clearFilter = () => setSelectedProf()
 
@@ -88,16 +99,19 @@ const UsersList = () => {
           />
         </div>
       )}
-      <div className="flex-column">
+      <div className="d-flex flex-column">
         <SearchStatus usersCount={count} />
         {count > 0 && (
-          <UsersTable
-            users={allUsers}
-            onSort={handleSort}
-            selectedSort={sortedBy}
-            onDelete={handleDelete}
-            onToggleBookMark={handleToggleBookMark}
-          />
+          <>
+            <SearchUsers searchUser={searchUser} onChange={handleSearchUser} />
+            <UsersTable
+              users={allUsers}
+              onSort={handleSort}
+              selectedSort={sortedBy}
+              onDelete={handleDelete}
+              onToggleBookMark={handleToggleBookMark}
+            />
+          </>
         )}
         <div className="d-flex justify-content-center">
           <Pagination
