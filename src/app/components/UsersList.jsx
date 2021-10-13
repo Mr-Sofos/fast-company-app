@@ -82,7 +82,7 @@ const UsersList = () => {
   )
 
   const searchFilter = sortedUsers.filter((item) =>
-    item.name.includes(searchUser)
+    item.name.toUpperCase().includes(searchUser.toUpperCase())
   )
   const count = searchFilter.length
 
