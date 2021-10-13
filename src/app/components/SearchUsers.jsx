@@ -3,8 +3,8 @@ import PropTypes from "prop-types"
 
 const SearchUsers = ({ searchUser, onChange }) => {
   return (
-    <div className="input-group">
-      <div className="form-outline">
+    <div className="input-group p-1">
+      <div className="form-outline w-100">
         <input
           type="search"
           id="searchUsers"

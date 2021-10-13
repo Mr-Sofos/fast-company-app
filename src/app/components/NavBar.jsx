@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom"
 const NavBar = () => {
   return (
     <>
-      <ul className="nav">
+      <ul className="nav p-2">
         <li className="nav-item">
           <NavLink
             exact

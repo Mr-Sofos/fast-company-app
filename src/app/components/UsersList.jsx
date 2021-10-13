@@ -15,16 +15,26 @@ const UsersList = () => {
   const [selectedProf, setSelectedProf] = useState()
   const [sortedBy, setSortedBy] = useState({ puth: "name", order: "asc" })
   const [users, setUsers] = useState()
-
   const [searchUser, setSearchUser] = useState("")
-
-  const handleSearchUser = ({ target }) => setSearchUser(target.value)
-
   const pageSize = 6
-
+  const clearFilter = () => setSelectedProf()
   useEffect(() => {
     api.users.fetchAll().then((data) => setUsers(data))
   }, [])
+
+  useEffect(() => {
+    api.professions.fetchAll().then((data) => setProfessions(data))
+  }, [])
+
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [selectedProf])
+
+  useEffect(() => {
+    clearFilter()
+  }, [searchUser])
+
+  const handleSearchUser = ({ target }) => setSearchUser(target.value)
 
   const handleDelete = (userId) =>
     setUsers(users.filter((user) => user._id !== userId))
@@ -41,20 +51,12 @@ const UsersList = () => {
     console.log(id)
   }
 
-  useEffect(() => {
-    api.professions.fetchAll().then((data) => setProfessions(data))
-  }, [])
-
-  useEffect(() => {
-    setCurrentPage(1)
-  }, [selectedProf])
-
   const handleProfessionSelect = (item) => {
+    setSearchUser("")
     setSelectedProf(item)
   }
 
   const handlePageChange = (pageIndex) => {
-    setSearchUser("")
     setCurrentPage(pageIndex)
   }
 
@@ -72,20 +74,19 @@ const UsersList = () => {
   if (!users) {
     return "...loading"
   }
-  const count = filteredUsers.length
+
   const sortedUsers = _.orderBy(
     filteredUsers,
     [sortedBy.path],
     [sortedBy.order]
   )
-  // search users practice
+
   const searchFilter = sortedUsers.filter((item) =>
     item.name.includes(searchUser)
   )
+  const count = searchFilter.length
 
   const allUsers = paginate(searchFilter, currentPage, pageSize)
-
-  const clearFilter = () => setSelectedProf()
 
   return (
     <div className="d-flex">
@@ -99,19 +100,17 @@ const UsersList = () => {
           />
         </div>
       )}
-      <div className="d-flex flex-column">
+      <div className="flex-column">
         <SearchStatus usersCount={count} />
+        <SearchUsers searchUser={searchUser} onChange={handleSearchUser} />
         {count > 0 && (
-          <>
-            <SearchUsers searchUser={searchUser} onChange={handleSearchUser} />
-            <UsersTable
-              users={allUsers}
-              onSort={handleSort}
-              selectedSort={sortedBy}
-              onDelete={handleDelete}
-              onToggleBookMark={handleToggleBookMark}
-            />
-          </>
+          <UsersTable
+            users={allUsers}
+            onSort={handleSort}
+            selectedSort={sortedBy}
+            onDelete={handleDelete}
+            onToggleBookMark={handleToggleBookMark}
+          />
         )}
         <div className="d-flex justify-content-center">
           <Pagination
