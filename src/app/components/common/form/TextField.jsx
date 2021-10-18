@@ -9,7 +9,9 @@ const TextField = ({ label, type, name, value, onChange, error }) => {
   const getInputClasses = () => `form-control ${error ? "is-invalid" : ""}`
   return (
     <div className="mb-4">
-      <label htmlFor={label}>{label}</label>
+      <label htmlFor="validationCustom04" className="form-label">
+        {label}
+      </label>
       <div className="input-group has-content">
         <input
           type={showPassword ? "text" : type}
