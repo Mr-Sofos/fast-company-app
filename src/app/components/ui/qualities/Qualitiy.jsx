@@ -1,8 +1,9 @@
 import React from "react"
 import PropTypes from "prop-types"
-const QualitiesList = ({ qualities }) => {
+
+const Qualitiy = ({ qualities }) => {
   return (
-    <>
+    <td>
       {qualities.map((qualitie) => (
         <span
           className={`m-1 p-1 rounded text-light bg-${qualitie.color}`}
@@ -11,11 +12,12 @@ const QualitiesList = ({ qualities }) => {
           {qualitie.name}
         </span>
       ))}
-    </>
+    </td>
   )
 }
-QualitiesList.propTypes = {
+
+Qualitiy.propTypes = {
   qualities: PropTypes.array
 }
 
-export default QualitiesList
+export default Qualitiy
