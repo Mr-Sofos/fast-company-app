@@ -7,17 +7,18 @@ import _ from "lodash"
 import GroupList from "./GroupList"
 import api from "../api"
 import SearchStatus from "./SearchStatus"
-import SearchUsers from "./SearchUsers"
 
 const UsersList = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [professions, setProfessions] = useState()
+  const [searchQuery, setSearchQuery] = useState("")
   const [selectedProf, setSelectedProf] = useState()
   const [sortedBy, setSortedBy] = useState({ puth: "name", order: "asc" })
   const [users, setUsers] = useState()
-  const [searchUser, setSearchUser] = useState("")
+
   const pageSize = 6
   const clearFilter = () => setSelectedProf()
+
   useEffect(() => {
     api.users.fetchAll().then((data) => setUsers(data))
   }, [])
@@ -28,13 +29,7 @@ const UsersList = () => {
 
   useEffect(() => {
     setCurrentPage(1)
-  }, [selectedProf])
-
-  useEffect(() => {
-    clearFilter()
-  }, [searchUser])
-
-  const handleSearchUser = ({ target }) => setSearchUser(target.value)
+  }, [selectedProf, searchQuery])
 
   const handleDelete = (userId) =>
     setUsers(users.filter((user) => user._id !== userId))
@@ -52,8 +47,13 @@ const UsersList = () => {
   }
 
   const handleProfessionSelect = (item) => {
-    setSearchUser("")
+    if (searchQuery !== "") setSearchQuery("")
     setSelectedProf(item)
+  }
+
+  const handleSearchQuery = ({ target }) => {
+    setSelectedProf(undefined)
+    setSearchQuery(target.value)
   }
 
   const handlePageChange = (pageIndex) => {
@@ -64,7 +64,12 @@ const UsersList = () => {
     setSortedBy(item)
   }
 
-  const filteredUsers = selectedProf
+  const filteredUsers = searchQuery
+    ? users.filter(
+        (user) =>
+          user.name.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1
+      )
+    : selectedProf
     ? users.filter(
         (user) =>
           JSON.stringify(user.profession) === JSON.stringify(selectedProf)
@@ -81,12 +86,9 @@ const UsersList = () => {
     [sortedBy.order]
   )
 
-  const searchFilter = sortedUsers.filter((item) =>
-    item.name.toUpperCase().includes(searchUser.toUpperCase())
-  )
-  const count = searchFilter.length
+  const count = sortedUsers.length
 
-  const allUsers = paginate(searchFilter, currentPage, pageSize)
+  const allUsers = paginate(sortedUsers, currentPage, pageSize)
 
   return (
     <div className="d-flex">
@@ -102,7 +104,13 @@ const UsersList = () => {
       )}
       <div className="flex-column">
         <SearchStatus usersCount={count} />
-        <SearchUsers searchUser={searchUser} onChange={handleSearchUser} />
+        <input
+          type="text"
+          name="searchQuery"
+          placeholder="Search..."
+          onChange={handleSearchQuery}
+          value={searchQuery}
+        />
         {count > 0 && (
           <UsersTable
             users={allUsers}
