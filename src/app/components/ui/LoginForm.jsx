@@ -25,7 +25,7 @@ const LoginForm = () => {
     },
     password: {
       isRequired: {
-        message: "Пароль обязательна для заполнения"
+        message: "Пароль обязателен для заполнения"
       },
       isCapitalSymbol: {
         message: "Пароль должен содержать хотя бы одну заглавную букву"
