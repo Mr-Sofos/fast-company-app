@@ -3,6 +3,7 @@ import TextField from "../common/form/TextField"
 import SelectField from "../common/form/SelectField"
 import RadioField from "../common/form/RadioField"
 import MultiSelectField from "../common/form/MultiSelectField"
+import CheckBoxField from "../common/form/CheckBoxField"
 import { validator } from "../../utils/validator"
 import api from "../../api"
 
@@ -12,7 +13,8 @@ const RegisterForm = () => {
     password: "",
     profession: "",
     sex: "male",
-    qualities: []
+    qualities: [],
+    licence: false
   })
   const [qualities, setQualities] = useState({})
   const [professions, setProfessions] = useState([])
@@ -24,7 +26,6 @@ const RegisterForm = () => {
   }, [])
 
   const handleChange = (target) => {
-    console.log(target)
     setData((prevState) => ({
       ...prevState,
       [target.name]: target.value
@@ -58,6 +59,12 @@ const RegisterForm = () => {
     profession: {
       isRequired: {
         message: "Обязательно выберите вашу профессию"
+      }
+    },
+    licence: {
+      isRequired: {
+        message:
+          "Вы не можете использовать наш серивис без подтверждения лицензионного соглашения"
       }
     }
   }
@@ -123,6 +130,14 @@ const RegisterForm = () => {
         name="qualities"
         label="Выберите ваши качества"
       />
+      <CheckBoxField
+        value={data.licence}
+        onChange={handleChange}
+        name="licence"
+        error={errors.licence}
+      >
+        Подтвердить <a>лицензионное солглашение</a>
+      </CheckBoxField>
       <button
         type="submit"
         disabled={!isValid}
