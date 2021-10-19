@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react"
 import TextField from "../common/form/TextField"
-import SelectField from "../common/form/selectField"
+import SelectField from "../common/form/SelectField"
+import RadioField from "../common/form/RadioField"
 import { validator } from "../../utils/validator"
 import api from "../../api"
 
 const RegisterForm = () => {
-  const [data, setData] = useState({ email: "", password: "", profession: "" })
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+    profession: "",
+    sex: "male"
+  })
   const [professions, setProfessions] = useState([])
   const [errors, setErrors] = useState({})
 
@@ -93,6 +99,16 @@ const RegisterForm = () => {
         onChange={handleChange}
         value={data.profession}
         error={errors.profession}
+      />
+      <RadioField
+        options={[
+          { name: "Male", value: "male" },
+          { name: "Female", value: "female" },
+          { name: "Other", value: "other" }
+        ]}
+        value={data.sex}
+        name="sex"
+        onChange={handleChange}
       />
       <button
         type="submit"
