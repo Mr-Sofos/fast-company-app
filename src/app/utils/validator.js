@@ -9,7 +9,6 @@ export function validator(data, config) {
         } else {
           statusValidate = data.trim() === ""
         }
-
         break
       }
       case "isEmail": {
@@ -34,7 +33,7 @@ export function validator(data, config) {
       default:
         break
     }
-    return statusValidate && config.message
+    if (statusValidate) return config.message
   }
   for (const fieldName in data) {
     for (const validateMethod in config[fieldName]) {

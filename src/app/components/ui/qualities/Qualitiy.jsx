@@ -1,23 +1,16 @@
 import React from "react"
 import PropTypes from "prop-types"
-
-const Qualitiy = ({ qualities }) => {
+const Quality = ({ color, name, _id }) => {
   return (
-    <td>
-      {qualities.map((qualitie) => (
-        <span
-          className={`m-1 p-1 rounded text-light bg-${qualitie.color}`}
-          key={qualitie._id}
-        >
-          {qualitie.name}
-        </span>
-      ))}
-    </td>
+    <span className={"badge m-1 bg-" + color} key={_id}>
+      {name}
+    </span>
   )
 }
-
-Qualitiy.propTypes = {
-  qualities: PropTypes.array
+Quality.propTypes = {
+  color: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  _id: PropTypes.string.isRequired
 }
 
-export default Qualitiy
+export default Quality

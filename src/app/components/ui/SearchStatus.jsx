@@ -1,25 +1,27 @@
 import React from "react"
 import PropTypes from "prop-types"
-const pluralize = require("numeralize-ru").pluralize
-
-const SearchusersCount = ({ usersCount }) => {
-  const peoples = pluralize(usersCount, "человек", "человека", "человек")
-  const party = pluralize(usersCount, "тусанёт", "тусанут", "тусанут")
-  const searchStatus = `${usersCount} ${peoples} ${party} с тобой сегодня`
-
+const SearchStatus = ({ length }) => {
+  const renderPhrase = (number) => {
+    const lastOne = Number(number.toString().slice(-1))
+    if (number > 4 && number < 15) {
+      return "человек тусанет"
+    }
+    if (lastOne === 1) return "человек тусанет"
+    if ([2, 3, 4].indexOf(lastOne) >= 0) return "человека тусанут"
+    return "человек тусанет"
+  }
   return (
-    <span
-      className={`${
-        usersCount ? "bg-primary" : "bg-danger"
-      } p-2 m-2 rounded text-white`}
-    >
-      {usersCount ? searchStatus : "Никто не тусанет с тобой сегодня"}
-    </span>
+    <h2>
+      <span className={"badge " + (length > 0 ? "bg-primary" : "bg-danger")}>
+        {length > 0
+          ? `${length + " " + renderPhrase(length)}   с тобой сегодня`
+          : "Никто с тобой не тусанет"}
+      </span>
+    </h2>
   )
 }
-
-SearchusersCount.propTypes = {
-  usersCount: PropTypes.number.isRequired
+SearchStatus.propTypes = {
+  length: PropTypes.number
 }
 
-export default SearchusersCount
+export default SearchStatus

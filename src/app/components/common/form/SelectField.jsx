@@ -5,14 +5,17 @@ const SelectField = ({
   label,
   value,
   onChange,
-  defaultOptions,
+  defaultOption,
   options,
   error
 }) => {
   const handleChange = ({ target }) => {
-    onChange({ name: [target.name], value: target.value })
+    onChange({ name: target.name, value: target.value })
   }
-  const getInputClasses = () => `form-select ${error ? "is-invalid" : ""}`
+  const getInputClasses = () => {
+    return "form-select" + (error ? " is-invalid" : "")
+  }
+
   const optionsArray =
     !Array.isArray(options) && typeof options === "object"
       ? Object.keys(options).map((optionName) => ({
@@ -27,19 +30,18 @@ const SelectField = ({
         {label}
       </label>
       <select
-        value={value}
-        label={label}
         className={getInputClasses()}
-        name="profession"
         id="validationCustom04"
+        name="profession"
+        value={value}
         onChange={handleChange}
       >
-        <option selected={value === ""} disabled value="">
-          {defaultOptions}
+        <option disabled value="">
+          {defaultOption}
         </option>
         {optionsArray &&
           optionsArray.map((option) => (
-            <option key={option.value} value={option.value}>
+            <option value={option.value} key={option.value}>
               {option.name}
             </option>
           ))}
@@ -48,13 +50,11 @@ const SelectField = ({
     </div>
   )
 }
-
 SelectField.propTypes = {
+  defaultOption: PropTypes.string,
   label: PropTypes.string,
-  name: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func,
-  defaultOptions: PropTypes.string,
   error: PropTypes.string,
   options: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 }

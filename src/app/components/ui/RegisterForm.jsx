@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react"
+import { validator } from "../../utils/validator"
 import TextField from "../common/form/TextField"
+import api from "../../api"
 import SelectField from "../common/form/SelectField"
 import RadioField from "../common/form/RadioField"
 import MultiSelectField from "../common/form/MultiSelectField"
 import CheckBoxField from "../common/form/CheckBoxField"
-import { validator } from "../../utils/validator"
-import api from "../../api"
 
 const RegisterForm = () => {
   const [data, setData] = useState({
@@ -17,25 +17,22 @@ const RegisterForm = () => {
     licence: false
   })
   const [qualities, setQualities] = useState({})
-  const [professions, setProfessions] = useState([])
+  const [professions, setProfession] = useState([])
   const [errors, setErrors] = useState({})
-
   useEffect(() => {
-    api.professions.fetchAll().then((data) => setProfessions(data))
+    api.professions.fetchAll().then((data) => setProfession(data))
     api.qualities.fetchAll().then((data) => setQualities(data))
   }, [])
-
   const handleChange = (target) => {
     setData((prevState) => ({
       ...prevState,
       [target.name]: target.value
     }))
   }
-
-  const validatorConfig = {
+  const validatorConfog = {
     email: {
       isRequired: {
-        message: "Електронная почта обязательна для заполнения"
+        message: "Электронная почта обязательна для заполнения"
       },
       isEmail: {
         message: "Email введен некорректно"
@@ -49,10 +46,10 @@ const RegisterForm = () => {
         message: "Пароль должен содержать хотя бы одну заглавную букву"
       },
       isContainDigit: {
-        message: "Пароль должен содержать хотя бы одну цифру"
+        message: "Пароль должен содержать хотя бы одно число"
       },
       min: {
-        message: "Пароль должен состоять минимум из 8 символов",
+        message: "Пароль должен состаять миниму из 8 символов",
         value: 8
       }
     },
@@ -64,21 +61,18 @@ const RegisterForm = () => {
     licence: {
       isRequired: {
         message:
-          "Вы не можете использовать наш серивис без подтверждения лицензионного соглашения"
+          "Вы не можете использовать наш сервис без подтреврждения лицензионного соглашения"
       }
     }
   }
-
   useEffect(() => {
     validate()
   }, [data])
-
   const validate = () => {
-    const errors = validator(data, validatorConfig)
+    const errors = validator(data, validatorConfog)
     setErrors(errors)
     return Object.keys(errors).length === 0
   }
-
   const isValid = Object.keys(errors).length === 0
 
   const handleSubmit = (e) => {
@@ -90,14 +84,14 @@ const RegisterForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <TextField
-        label="Email"
+        label="Электронная почта"
         name="email"
         value={data.email}
         onChange={handleChange}
         error={errors.email}
       />
       <TextField
-        label="Password"
+        label="Пароль"
         type="password"
         name="password"
         value={data.password}
@@ -105,9 +99,9 @@ const RegisterForm = () => {
         error={errors.password}
       />
       <SelectField
+        label="Выбери свою профессию"
+        defaultOption="Choose..."
         options={professions}
-        label="Выберите вашу профессию"
-        defaultOptions="Choose..."
         onChange={handleChange}
         value={data.profession}
         error={errors.profession}
@@ -121,14 +115,13 @@ const RegisterForm = () => {
         value={data.sex}
         name="sex"
         onChange={handleChange}
-        label="выберите ваш пол"
+        label="Выберите ваш пол"
       />
       <MultiSelectField
         options={qualities}
         onChange={handleChange}
-        defaltValue={data.qualities}
         name="qualities"
-        label="Выберите ваши качества"
+        label="Выберите ваши качесвта"
       />
       <CheckBoxField
         value={data.licence}
@@ -136,7 +129,7 @@ const RegisterForm = () => {
         name="licence"
         error={errors.licence}
       >
-        Подтвердить <a>лицензионное солглашение</a>
+        Подтвердить <a>лицензионное соглашение</a>
       </CheckBoxField>
       <button
         type="submit"

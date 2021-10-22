@@ -1,14 +1,14 @@
 import React from "react"
-import { Switch, Route, Redirect } from "react-router-dom"
+import { Route, Switch, Redirect } from "react-router-dom"
 
-import NavBar from "./components/ui/NavBar"
-import Main from "./layouts/Main"
 import Users from "./layouts/Users"
 import Login from "./layouts/Login"
+import Main from "./layouts/Main"
+import NavBar from "./components/ui/NavBar"
 
-const App = () => {
+function App() {
   return (
-    <>
+    <div>
       <NavBar />
       <Switch>
         <Route path="/users/:userId?/:edit?" component={Users} />
@@ -16,7 +16,7 @@ const App = () => {
         <Route path="/" exact component={Main} />
         <Redirect to="/" />
       </Switch>
-    </>
+    </div>
   )
 }
 
