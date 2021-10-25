@@ -26,13 +26,14 @@ const AddCommentForm = ({ onSubmit }) => {
       }
     }
   }
+
   const validate = () => {
     const errors = validator(data, validatorConfig)
     setErrors(errors)
     return Object.keys(errors).length === 0
   }
   useEffect(() => {
-    API.users.fetchAll().then(setUsers)
+    API.users.fetchAll().then((data) => setUsers(data))
   }, [])
   const clearForm = () => {
     setData(initialData)
@@ -60,8 +61,8 @@ const AddCommentForm = ({ onSubmit }) => {
           options={arrayOfUsers}
           name="userId"
           value={data.userId}
-          defaultOptions="Выберите пользователя"
-          errors={errors.userId}
+          defaultOption="Выберите пользователя"
+          error={errors.userId}
         />
         <TextAreaField
           value={data.content}

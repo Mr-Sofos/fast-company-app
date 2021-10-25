@@ -7,7 +7,8 @@ const SelectField = ({
   onChange,
   defaultOption,
   options,
-  error
+  error,
+  name
 }) => {
   const handleChange = ({ target }) => {
     onChange({ name: target.name, value: target.value })
@@ -32,7 +33,7 @@ const SelectField = ({
       <select
         className={getInputClasses()}
         id="validationCustom04"
-        name="profession"
+        name={name}
         value={value}
         onChange={handleChange}
       >
@@ -56,7 +57,8 @@ SelectField.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
   error: PropTypes.string,
-  options: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
+  options: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  name: PropTypes.string
 }
 
 export default SelectField
