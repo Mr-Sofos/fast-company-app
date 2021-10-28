@@ -55,17 +55,6 @@ const add = (data) =>
       resolve(newComment)
     }, 200)
   })
-// const remove = (id) =>
-//   new Promise((resolve) => {
-//     window.setTimeout(() => {
-//       const comments = JSON.parse(localStorage.getItem("comments"))
-//       const newComments = comments.filter((x) => x._id !== id)
-//       console.log(id)
-//       console.log(newComments)
-//       localStorage.setItem("comments", JSON.stringify(newComments))
-//       resolve(id)
-//     }, 200)
-//   })
 
 const remove = (id) =>
   new Promise((resolve) => {
