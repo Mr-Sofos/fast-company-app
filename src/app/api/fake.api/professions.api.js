@@ -1,18 +1,18 @@
 export const professionsObject = {
-  doctor: { _id: "67rdca3eeb7f6fgeed471818", name: "Доктор" },
-  waiter: { _id: "67rdca3eeb7f6fgeed471820", name: "Официант" },
-  physics: { _id: "67rdca3eeb7f6fgeed471814", name: "Физик" },
+  jsdd: { _id: "67rdca3eeb7f6fgeed471818", name: "JS-разработчик" },
+  java: { _id: "67rdca3eeb7f6fgeed471820", name: "Джавист" },
+  hr: { _id: "67rdca3eeb7f6fgeed471814", name: "HR-менеджер" },
   engineer: { _id: "67rdca3eeb7f6fgeed471822", name: "Инженер" },
   actor: { _id: "67rdca3eeb7f6fgeed471824", name: "Актер" },
-  cook: { _id: "67rdca3eeb7f6fgeed471829", name: "Повар" }
+  sisAdmin: { _id: "67rdca3eeb7f6fgeed471829", name: "Сис. админ." }
 }
 export const professions = [
-  { _id: "67rdca3eeb7f6fgeed471818", name: "Доктор" },
-  { _id: "67rdca3eeb7f6fgeed471820", name: "Официант" },
-  { _id: "67rdca3eeb7f6fgeed471814", name: "Физик" },
+  { _id: "67rdca3eeb7f6fgeed471818", name: "JS-разработчик" },
+  { _id: "67rdca3eeb7f6fgeed471820", name: "Джавист" },
+  { _id: "67rdca3eeb7f6fgeed471814", name: "HR-менеджер" },
   { _id: "67rdca3eeb7f6fgeed471822", name: "Инженер" },
   { _id: "67rdca3eeb7f6fgeed471824", name: "Актер" },
-  { _id: "67rdca3eeb7f6fgeed471829", name: "Повар" }
+  { _id: "67rdca3eeb7f6fgeed471829", name: "Сис. админ." }
 ]
 const fetchAll = () =>
   new Promise((resolve) => {
