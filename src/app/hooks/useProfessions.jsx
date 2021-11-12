@@ -5,9 +5,7 @@ import professionService from "../services/profession.service"
 
 const ProfessionContext = React.createContext()
 
-export const useProfession = () => {
-  return useContext(ProfessionContext)
-}
+export const useProfessions = () => useContext(ProfessionContext)
 
 export const ProfessionProvider = ({ children }) => {
   const [professions, setProfessions] = useState([])

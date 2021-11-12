@@ -16,6 +16,13 @@ const UserProvider = ({ children }) => {
     getUsers()
   }, [])
 
+  useEffect(() => {
+    if (error !== null) {
+      toast(error)
+      setError(null)
+    }
+  }, [error])
+
   async function getUsers() {
     try {
       const { content } = await userService.get()
@@ -31,13 +38,6 @@ const UserProvider = ({ children }) => {
     setError(message)
     setLoading(false)
   }
-
-  useEffect(() => {
-    if (error !== null) {
-      toast(error)
-      setError(null)
-    }
-  }, [error])
 
   return (
     <UserContext.Provider value={{ users }}>

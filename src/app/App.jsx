@@ -6,7 +6,7 @@ import Login from "./layouts/Login"
 import Main from "./layouts/Main"
 import NavBar from "./components/ui/NavBar"
 import { ToastContainer } from "react-toastify"
-import { ProfessionProvider } from "./hooks/useProfession"
+import { ProfessionProvider } from "./hooks/useProfessions"
 
 function App() {
   return (
