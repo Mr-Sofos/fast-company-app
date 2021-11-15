@@ -1,4 +1,4 @@
-import CommentsList from "./CommentsList"
-import AddCommentForm from "./AddCommentForm"
-export default CommentsList
-export { AddCommentForm }
+import CommentsList from "./commentsList";
+import AddCommentForm from "./addCommentForm";
+export default CommentsList;
+export { AddCommentForm };
