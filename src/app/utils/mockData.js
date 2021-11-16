@@ -15,11 +15,9 @@ const useMockData = () => {
     const [status, setStatus] = useState(statusConsts.idle);
     const [progress, setProgress] = useState(0);
     const [count, setCount] = useState(0);
-    const summaryCount = professions.length + qualitites.length + users.length;
+    const summaryCount = professions.length + qualities.length + users.length;
     const incrementCount = () => setCount((prev) => prev + 1);
-    const updateProgress = () => setProgress();
-
-    useEffect(() => {
+    const updateProgress = () => {
         if (count !== 0 && status === statusConsts.idle) {
             setStatus(statusConsts.pending);
         }
@@ -27,6 +25,13 @@ const useMockData = () => {
         if (progress < newProgress) {
             setProgress(() => newProgress);
         }
+        if (newProgress === 100) {
+            setStatus(statusConsts.successed);
+        }
+    };
+
+    useEffect(() => {
+        updateProgress();
     }, [count]);
 
     async function initialize() {
@@ -35,12 +40,21 @@ const useMockData = () => {
                 await httpService.put("profession/" + prof._id, prof);
                 incrementCount();
             }
+            for (const user of users) {
+                await httpService.put("user/" + user._id, user);
+                incrementCount();
+            }
+            for (const qual of qualities) {
+                await httpService.put("quality/" + qual._id, qual);
+                incrementCount();
+            }
         } catch (error) {
             setError(error);
+            setStatus(statusConsts.error);
         }
     }
 
-    return { error, initialize };
+    return { error, initialize, progress, status };
 };
 
 export default useMockData;
