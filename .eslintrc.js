@@ -27,6 +27,5 @@ module.exports = {
                 allowTemplateLiterals: true
             }
         ]
-        // "no-unused-expressions": "off"
     }
 };

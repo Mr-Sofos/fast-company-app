@@ -15,13 +15,15 @@ const useMockData = () => {
     const [status, setStatus] = useState(statusConsts.idle);
     const [progress, setProgress] = useState(0);
     const [count, setCount] = useState(0);
-    const summaryCount = professions.length + qualities.length + users.length;
-    const incrementCount = () => setCount((prev) => prev + 1);
+    const summuryCount = professions.length + qualities.length + users.length;
+    const incrementCount = () => {
+        setCount((prevState) => prevState + 1);
+    };
     const updateProgress = () => {
         if (count !== 0 && status === statusConsts.idle) {
             setStatus(statusConsts.pending);
         }
-        const newProgress = Math.floor((count / summaryCount) * 100);
+        const newProgress = Math.floor((count / summuryCount) * 100);
         if (progress < newProgress) {
             setProgress(() => newProgress);
         }
@@ -33,7 +35,6 @@ const useMockData = () => {
     useEffect(() => {
         updateProgress();
     }, [count]);
-
     async function initialize() {
         try {
             for (const prof of professions) {

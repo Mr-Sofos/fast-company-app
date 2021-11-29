@@ -17,19 +17,17 @@ axios.interceptors.request.use(
         return Promise.reject(error);
     }
 );
-
-function transformData(data) {
+function transormData(data) {
     return data
         ? Object.keys(data).map((key) => ({
               ...data[key]
           }))
         : [];
 }
-
 axios.interceptors.response.use(
     (res) => {
         if (configFile.isFireBase) {
-            res.data = { content: transformData(res.data) };
+            res.data = { content: transormData(res.data) };
         }
         return res;
     },
