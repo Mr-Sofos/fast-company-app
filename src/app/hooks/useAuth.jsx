@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 
+const httpAuth = axios.create();
 const AuthContext = React.createContext();
 
 export const useAuth = () => useContext(AuthContext);
@@ -10,7 +11,7 @@ const AuthProvider = ({ children }) => {
     async function signUp({ email, password }) {
         const key = "AIzaSyCMCmNWoyiYKZGNYgETXPDWC_1o2sy-IxE";
         const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${key}`;
-        const { data } = await axios.post(url, {
+        const { data } = await httpAuth.post(url, {
             email,
             password,
             returnSecureToken: true
