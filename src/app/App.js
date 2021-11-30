@@ -13,6 +13,7 @@ function App() {
     return (
         <div>
             <NavBar />
+
             <QualitiesProvider>
                 <ProfessionProvider>
                     <Switch>
