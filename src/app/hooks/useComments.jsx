@@ -17,8 +17,12 @@ export const CommentsProvider = ({ children }) => {
         setComments(null);
     }, []);
 
+    async function createComment(data) {
+        console.log(data);
+    }
+
     return (
-        <CommentsContext.Provider value={{ comments }}>
+        <CommentsContext.Provider value={{ comments, createComment }}>
             {children}
         </CommentsContext.Provider>
     );
