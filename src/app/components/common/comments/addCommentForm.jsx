@@ -42,7 +42,7 @@ const AddCommentForm = ({ onSubmit }) => {
             <h2>New comment</h2>
             <form onSubmit={handleSubmit}>
                 <TextAreaField
-                    value={data.content || ""}
+                    value={data?.content || ""}
                     onChange={handleChange}
                     name="content"
                     label="Сообщение"
