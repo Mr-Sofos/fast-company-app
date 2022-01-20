@@ -8,6 +8,16 @@ const commentService = {
             payload
         );
         return data;
+    },
+    getComments: async (pageId) => {
+        const PAGEID = "pageId";
+        const { data } = await httpService.get(commentEndpoint, {
+            params: {
+                orderBy: `"${PAGEID}"`,
+                equalTo: `"${pageId}"`
+            }
+        });
+        return data;
     }
 };
 export default commentService;
